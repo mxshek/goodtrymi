@@ -5,7 +5,7 @@ myRect.color = [200, 20, 200]
 let myOtherRect = new Shape(400, 500, 50, 50, -1, -1)
 
 
-let system = new ShapeSystem()
+let system = new shapeSystem()
 
 
 function setup() {
@@ -25,6 +25,7 @@ function setup() {
 
 function draw() {
   background(200)
+  system.createShape()
 
   myRect.update()
   myOtherRect.update()
@@ -33,5 +34,6 @@ function draw() {
   myOtherRect.display()
 
   system.update()
+  system.discardShapes()
   system.display()
 }

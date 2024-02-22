@@ -26,10 +26,15 @@ class shapeSystem {
 
 //get rid of old shapes
     discardShapes() {
+
+        for(let i = 0; i < this.shapes.length; i++){
         //IF a shape is too old
+            if(this.shapes[i].age > 100){
+                this.shapes.splice(i, 1)
+            }
         //THEN we get rid of it
         //remove it from the shapes arr
-
+        }
     }
 
 //update the shapes
