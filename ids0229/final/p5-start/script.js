@@ -1,13 +1,12 @@
 // add the same uuid as your arduino
-const serviceUuid = "c2832a48-cf80-4aa6-95d4-49ee8f025aa5";
+let serial;
+let latestData = "waiting for data";
 
 let buttonCharacteristic;
 let buttontwoCharacteristic;
 
 let buttonValue = 0;
 let buttontwoValue = 0;
-
-let myBLE;
 
 let bg = [0, 0, 0];
 
@@ -73,17 +72,50 @@ function preload(){
 
 function setup() {
   createCanvas(1400, 700)
-  //object will let us read to the bluetooth and write to it as well
-  myBLE = new p5ble();
 
-
-  //turn on bluetooth connection
-  const connectButton = createButton("Connect");
-  connectButton.mousePressed(connectToBLE);
-
-
+  serial = new p5.SerialPort();
+  serial.list();
+  serial.open('COM3');
+  serial.on('connected', serverConnected);
+  serial.on('list', gotList);
+  serial.on('data', gotData);
+  serial.on('error', gotError);
+  serial.on('open', gotOpen);
+  serial.on('closer', gotClose);
 }
 
+function serverConnected(){
+  print("Connected to Server");
+}
+
+function gotList(thelist) {
+  print("List of Serial Ports:");
+
+  for (let i = 0; i < thelist.length; i++) {
+    print(i + " " + thelist[i])
+  }
+}
+
+function gotOpen() {
+  print("Serial Port is Open")
+}
+
+function gotClose() {
+  print("Serial Port is Closed");
+  latestData = "Serial Port is Closed"
+}
+
+function gotError(theerror) {
+  print(theerror)
+}
+
+function gotData() {
+  let currentString = serial.readLine();
+  trim(currentString);
+  if (!currentString) return;
+  console.log(currentString)
+  latestData = currentString;
+}
 
 function draw() {
   background(bg)
@@ -105,43 +137,6 @@ if (buttonValue === 1) {
   }
     }
   
-
-
-
-function connectToBLE() {
-  myBLE.connect(serviceUuid, gotCharacteristics)
-}
-
-function gotCharacteristics(error, characteristics) {
-  if (error) console.error(error)
-  // console.log("characteristics: ", characteristics)
-  console.log("Connected to Service")
- 
-  console.log("Characteristics: ", characteristics)
-
-  //check console of sketch and then double check arduino which uuid is which
-  buttonCharacteristic = characteristics[0]
-  myBLE.read(buttonCharacteristic, gotButtonValue)
-
-  buttontwoCharacteristic = characteristics[1]
-  myBLE.read(buttontwoCharacteristic, gotbuttontwoValue)
-}
-
-
-function gotButtonValue(error, value) {
-  if (error) console.error(error)
-  buttonValue = value
-// console.log("button value: ", value)
-  myBLE.read(buttonCharacteristic, gotButtonValue)
-}
-
-
-function gotbuttontwoValue(error, value) {
-  if (error) console.error(error)
-  buttontwoValue = value
-// console.log("button value: ", value)
-  myBLE.read(buttontwoCharacteristic, gotbuttontwoValue)
-}
 
 
 
