@@ -23,16 +23,10 @@ function preload(){
 let mic, fft;
 
 
-//glitch setup
-let glitch, typeCounter = 0
-let video
-// let httpglitch
-
 
 // lines setup
 let newline
 let lines = []
-let numlines = 50
 randomrgb = []
 class Line {
   constructor(){
@@ -66,7 +60,10 @@ class Line {
 
 // final color transition
 let colortransition = [
+  [200, 51 , 92],
   [200, 51 , 92], // Red
+  [200, 51 , 92], // Red
+  [200, 51 , 92], // Red  // Red
   [255, 102, 102], // Dusk
   [255, 153, 102],
   [255, 204, 102],
@@ -77,6 +74,13 @@ let colortransition = [
   [102, 255, 255],
   [102, 204, 255],
   [102, 153, 255], // Dawn
+  [255, 255, 255]
+  [255, 255, 255]
+  [255, 255, 255]
+  [255, 255, 255]
+  [255, 255, 255]
+  [255, 255, 255]
+  [255, 255, 255]
   [255, 255, 255]
 ]
 let currentColorIndex = 0;
@@ -89,45 +93,51 @@ let blendAmount = 0;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(bg)
-
+  frameRate(60)
 
   mic = new p5.AudioIn();
   mic.start();
   fft = new p5.FFT();
   fft.setInput(mic);
+  amplitude = new p5.Amplitude()
+  let waveform = fft.waveform();
+  numlines = map(max(waveform), -1, 1, 0, 50)
+  let amp = mic.getLevel();
+  let s = map(amp, 0, 1, 1, 15);
+  let freq = fft.getEnergy("bass");
+  let l = map(freq, 0, 255, 20, 150);
 
-
-  glitch = new Glitch();
-  setupGlitch(); // load image w/ random type
-
-
-
-
-randomrgb.push(color(200, 51 , 92))
-randomrgb.push(color(14, 146 , 107))
-randomrgb.push(color(25, 69 , 124))
-
+  randomrgb.push(color(200, 51 , 92))
+  randomrgb.push(color(14, 146 , 107))
+  randomrgb.push(color(25, 69 , 124))
 
   for (let i = 0; i < numlines; i++) {
     x = random(0, windowWidth)
     y = random(0, windowHeight)
-    let newline = new Line(
+    let testline = new Line(
         x,
         y,
-        x + random(15, 140),
+        x + l,
         y,
-        random(1, 5))
-    lines.push(newline);
+        s)
+    lines.push(testline);
 }
 
 
-//insert video so framecount doesnt break
-video = createVideo('screen/glitch.mp4')
 
-
+ 
+//   for (let i = 0; i < numlines; i++) {
+//     x = random(0, windowWidth)
+//     y = random(0, windowHeight)
+//     let newline = new Line(
+//         x,
+//         y,
+//         x + random(15, 140),
+//         y,
+//         random(1, 5))
+//     lines.push(newline);
+// }
 }
-
-
 
 
 function draw() {
@@ -136,16 +146,15 @@ imageMode(CENTER);
 image(images[imageIndex], windowWidth/2, windowHeight/2,windowWidth, windowHeight)
 
 
-
-
   //intro
-  if (frameCount < 1400) {
+  if (frameCount < 1800) {
     http()
+    linesdisplay()
     }
 
 
   //penicillin
-  if (frameCount > 1400 & frameCount < 1700){
+  if (frameCount > 1800 & frameCount < 2400){
     rect(0, 0, windowWidth, windowHeight)
     fill(255, 255, 255)
     imageMode(CENTER);
@@ -154,78 +163,78 @@ image(images[imageIndex], windowWidth/2, windowHeight/2,windowWidth, windowHeigh
 
 
   //selfdiscovery
-  if (frameCount > 1700 & frameCount < 3800){
+  if (frameCount > 2400 & frameCount < 4980){
     http()
   }
 
 
   //data uploaded
-  if (frameCount > 3800 & frameCount < 6080){
+  if (frameCount > 4980 & frameCount < 8220){
     http()
     linesdisplay()
   }
 
 
   //q1
-  if (frameCount > 6080 & frameCount < 7200){
+  if (frameCount > 8220 & frameCount < 9840){
     dizzy()
   }
 
 
   //post q1
-  if (frameCount > 7200 & frameCount < 7450){
+  if (frameCount > 9840 & frameCount < 10200){
     http()
     linesdisplay()
   }
 
 
   //q1
-  if (frameCount > 7450 & frameCount < 8900){
+  if (frameCount > 10200 & frameCount < 12120){
     mountain()
   }
 
 
   //post q2
-  if (frameCount > 8900 & frameCount < 9100){
+  if (frameCount > 12120 & frameCount < 12420){
     http()
     linesdisplay()
   }
 
 
   //q3
-  if (frameCount > 9100 & frameCount < 10250){
+  if (frameCount > 12420 & frameCount < 14100){
     blood()
   }
 
 
   //post q3
-  if (frameCount > 10250 & frameCount < 10560){
+  if (frameCount > 14100 & frameCount < 14400){
     http()
     linesdisplay()
   }
 
 
 //q4
-  if (frameCount > 10560 & frameCount < 11850){
+  if (frameCount > 14400 & frameCount < 16140){
     moment()
   }
 
 
   //post q4
-  if (frameCount > 11850 & frameCount < 12200){
+  if (frameCount > 16140 & frameCount < 16560){
     http()
     linesdisplay()
   }
 
 
   //miya voice
-  if (frameCount > 12200 & frameCount < 15210){
+  if (frameCount > 16560 & frameCount < 20280){
     sound()
   }
 
 
   //angy miya
-  if (frameCount > 15210 & frameCount < 16300){
+  if (frameCount > 20280 & frameCount < 21780){
     rect(0, 0, windowWidth, windowHeight)
     fill(200, 51 , 92)
     imageIndex = 8
@@ -233,7 +242,7 @@ image(images[imageIndex], windowWidth/2, windowHeight/2,windowWidth, windowHeigh
   }
  
   //poem reading
-  if (frameCount > 16300 & frameCount < 29700){
+  if (frameCount > 21780 & frameCount < 29700){
   colorchange()
   }
 
@@ -333,3 +342,49 @@ function colorchange(){
     blendAmount = 0;
   }
 }
+
+
+// sound interaction screen
+function soundline(){
+  rect(0, 0, windowWidth, windowHeight)
+  fill(255, 255, 255)
+    // Get the amplitude and frequency data from the microphone input
+    // let waveform = fft.waveform();
+
+
+    // // this.speed = random(1, 15);
+    // // this.length = random(20, 150)
+    // //set speed
+    // let amplitude = mic.getLevel();
+    // let s = map(amplitude, 0, 1, 1, 15);
+
+    // //set length
+    // let freq = fft.getEnergy("bass");
+    // let l = map(freq, 0, 255, 20, 150);
+
+    for (let i = 0; i < numlines; i++) {
+      // let x = map(i, 0, waveform.length, 0, windowWidth);
+      // let y = map(waveform[i], -1, 1, 0, windowHeight);
+      x = random(0, windowWidth)
+      y = random(0, windowHeight)
+      let testline = new Line(
+          x,
+          y,
+          x + l,
+          y,
+          s)
+      lines.push(testline);
+  }
+
+  for (let i = 0; i < lines.length; i++) {
+    lines[i].update()
+    lines[i].display() 
+
+    // Draw a line that changes based on the sound input
+    // for (let i = 0; i < waveform.length; i++) {
+    //   let x = map(i, 0, waveform.length, 0, width);
+    //   let y = map(waveform[i], -1, 1, 0, height);
+    //   vertex(x, y);
+    // }
+    // endShape();
+}}
