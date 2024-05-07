@@ -74,15 +74,16 @@ let colortransition = [
   [102, 255, 255],
   [102, 204, 255],
   [102, 153, 255], // Dawn
-  [255, 255, 255]
-  [255, 255, 255]
-  [255, 255, 255]
-  [255, 255, 255]
-  [255, 255, 255]
-  [255, 255, 255]
-  [255, 255, 255]
-  [255, 255, 255]
+  [255, 255, 255],
+  [255, 255, 255],
+  [255, 255, 255],
+  [255, 255, 255],
+  [255, 255, 255],
+  [255, 255, 255],
+  [255, 255, 255],
+  [255, 255, 255],
 ]
+
 let currentColorIndex = 0;
 let nextColorIndex = 1;
 let blendAmount = 0;
@@ -149,7 +150,6 @@ image(images[imageIndex], windowWidth/2, windowHeight/2,windowWidth, windowHeigh
   //intro
   if (frameCount < 1800) {
     http()
-    linesdisplay()
     }
 
 
@@ -229,7 +229,9 @@ image(images[imageIndex], windowWidth/2, windowHeight/2,windowWidth, windowHeigh
 
   //miya voice
   if (frameCount > 16560 & frameCount < 20280){
-    sound()
+    // sound()
+    http()
+    linesdisplay()
   }
 
 
