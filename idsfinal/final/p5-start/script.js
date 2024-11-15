@@ -182,53 +182,53 @@ image(images[imageIndex], windowWidth/2, windowHeight/2,windowWidth, windowHeigh
 
 
   //post q1
-  if (frameCount > 9840 & frameCount < 10200){
+  if (frameCount > 9840 & frameCount < 11640){
     http()
     linesdisplay()
   }
 
 
   //q1
-  if (frameCount > 10200 & frameCount < 12120){
+  if (frameCount > 11640 & frameCount < 13620){
     mountain()
   }
 
 
   //post q2
-  if (frameCount > 12120 & frameCount < 12420){
+  if (frameCount > 13620 & frameCount < 14880){
     http()
     linesdisplay()
   }
 
 
   //q3
-  if (frameCount > 12420 & frameCount < 14100){
+  if (frameCount > 14880 & frameCount < 16560){
     blood()
   }
 
 
   //post q3
-  if (frameCount > 14100 & frameCount < 14400){
+  if (frameCount > 16560 & frameCount < 18240){
     http()
     linesdisplay()
   }
 
 
 //q4
-  if (frameCount > 14400 & frameCount < 16140){
+  if (frameCount > 18240 & frameCount < 20040){
     moment()
   }
 
 
   //post q4
-  if (frameCount > 16140 & frameCount < 16560){
+  if (frameCount > 20040 & frameCount < 20400){
     http()
     linesdisplay()
   }
 
 
   //miya voice
-  if (frameCount > 16560 & frameCount < 20280){
+  if (frameCount > 20400 & frameCount < 24180){
     // sound()
     http()
     linesdisplay()
@@ -236,7 +236,7 @@ image(images[imageIndex], windowWidth/2, windowHeight/2,windowWidth, windowHeigh
 
 
   //angy miya
-  if (frameCount > 20280 & frameCount < 21780){
+  if (frameCount > 24180 & frameCount < 25680){
     rect(0, 0, windowWidth, windowHeight)
     fill(200, 51 , 92)
     imageIndex = 8
@@ -244,7 +244,7 @@ image(images[imageIndex], windowWidth/2, windowHeight/2,windowWidth, windowHeigh
   }
  
   //poem reading
-  if (frameCount > 21780 & frameCount < 29700){
+  if (frameCount > 25680 & frameCount < 33660){
   colorchange()
   }
 
