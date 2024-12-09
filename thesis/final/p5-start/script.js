@@ -323,10 +323,11 @@ function isVisible(fw) {
 
 
 function draw() {
-console.log(frameCount)
-imageMode(CENTER);
-image(images[imageIndex], windowWidth/2, windowHeight/2,windowWidth, windowHeight)
+  console.log(frameCount)
+  imageMode(CENTER);
+  image(images[imageIndex], windowWidth/2, windowHeight/2,windowWidth, windowHeight)
 
+  drawnWords = drawnWords.filter(isVisible);
 
   //intro
   if (frameCount < 1800) {
@@ -364,47 +365,123 @@ image(images[imageIndex], windowWidth/2, windowHeight/2,windowWidth, windowHeigh
 
   //post q1
   if (frameCount > 8520 & frameCount < 11640){
-    http()
-    linesdisplay()
+    for (wi = 0; wi < drawnWords.length; wi++) {
+      let nextWord = drawnWords[wi];
+      nextWord.update();
+      nextWord.draw();
+    }
+  
+    // check if it's time to add a new FadingWord to array
+    if (millis() > nextUpdateMillis) {
+      let nextWordIndex = wordCount % q1words.length;
+      let nextWord = q1words[nextWordIndex];
+  
+      // add word to array
+      let wordDelay = random(450, 600);
+      drawnWords.push(new FadingWord(nextWord, wordDelay));
+  
+      // always increment the word count
+      wordCount += 1;
+  
+      // next update time in millis, with some variation
+      nextUpdateMillis = millis() + 1.2 * wordDelay;
+    }
   }
 
 
   //q2
-  if (frameCount > 11640 & frameCount < 13620){
+  if (frameCount > 11640 & frameCount < 11940){
     mountain()
   }
 
 
   //post q2
-  if (frameCount > 13620 & frameCount < 14880){
-    http()
-    linesdisplay()
+  if (frameCount > 11940 & frameCount < 14880){
+    for (wi = 0; wi < drawnWords.length; wi++) {
+      let nextWord = drawnWords[wi];
+      nextWord.update();
+      nextWord.draw();
+    }
+  
+    // check if it's time to add a new FadingWord to array
+    if (millis() > nextUpdateMillis) {
+      let nextWordIndex = wordCount % q2words.length;
+      let nextWord = q2words[nextWordIndex];
+  
+      // add word to array
+      let wordDelay = random(450, 600);
+      drawnWords.push(new FadingWord(nextWord, wordDelay));
+  
+      // always increment the word count
+      wordCount += 1;
+  
+      // next update time in millis, with some variation
+      nextUpdateMillis = millis() + 1.2 * wordDelay;
+    }
   }
 
 
   //q3
-  if (frameCount > 14880 & frameCount < 16560){
+  if (frameCount > 14880 & frameCount < 15180){
     blood()
   }
 
 
   //post q3
-  if (frameCount > 16560 & frameCount < 18240){
-    http()
-    linesdisplay()
+  if (frameCount > 15180 & frameCount < 18240){
+    for (wi = 0; wi < drawnWords.length; wi++) {
+      let nextWord = drawnWords[wi];
+      nextWord.update();
+      nextWord.draw();
+    }
+  
+    // check if it's time to add a new FadingWord to array
+    if (millis() > nextUpdateMillis) {
+      let nextWordIndex = wordCount % q3words.length;
+      let nextWord = q3words[nextWordIndex];
+  
+      // add word to array
+      let wordDelay = random(450, 600);
+      drawnWords.push(new FadingWord(nextWord, wordDelay));
+  
+      // always increment the word count
+      wordCount += 1;
+  
+      // next update time in millis, with some variation
+      nextUpdateMillis = millis() + 1.2 * wordDelay;
+    }
   }
 
 
 //q4
-  if (frameCount > 18240 & frameCount < 20040){
+  if (frameCount > 18240 & frameCount < 18540){
     moment()
   }
 
 
   //post q4
-  if (frameCount > 20040 & frameCount < 20400){
-    http()
-    linesdisplay()
+  if (frameCount > 18540 & frameCount < 20400){
+    for (wi = 0; wi < drawnWords.length; wi++) {
+      let nextWord = drawnWords[wi];
+      nextWord.update();
+      nextWord.draw();
+    }
+  
+    // check if it's time to add a new FadingWord to array
+    if (millis() > nextUpdateMillis) {
+      let nextWordIndex = wordCount % q4words.length;
+      let nextWord = q4words[nextWordIndex];
+  
+      // add word to array
+      let wordDelay = random(450, 600);
+      drawnWords.push(new FadingWord(nextWord, wordDelay));
+  
+      // always increment the word count
+      wordCount += 1;
+  
+      // next update time in millis, with some variation
+      nextUpdateMillis = millis() + 1.2 * wordDelay;
+    }
   }
 
 
