@@ -101,13 +101,13 @@ class FadingWord {
     this.font = "sans-serif";
     this.size = minTextSize;
     this.yOffset = 0;
-    this.fadeVel = -0.5;
+    this.fadeVel = -0.3;
 
     // red = (200, 51 , 92))
     // green = (14, 146 , 107))
     // blue = color(25, 69 , 124))
 
-    if (this.word.toLowerCase() == "down" || this.word.toLowerCase() == "dizzy" || this.word.toLowerCase() == "world" || this.word.toLowerCase() == "base" || random() > 0.95) {
+    if (this.word.toLowerCase() == "down" || this.word.toLowerCase() == "dizzy" || this.word.toLowerCase() == "world" || this.word.toLowerCase() == "base") {
       this.word = this.word.toUpperCase();
       this.red = 25
       this.green = 69
@@ -115,10 +115,10 @@ class FadingWord {
       this.font = "monospace";
       this.size = maxTextSize;
       this.yOffset = -this.size / 6;
-      this.fadeVel = -0.05;
+      this.fadeVel = -0.03;
     }
 
-    if (this.word.toLowerCase() == "blink" || this.word.toLowerCase() == "mountain" || random() > 0.95) {
+    if (this.word.toLowerCase() == "blink" || this.word.toLowerCase() == "mountain") {
       this.word = this.word.toUpperCase();
       this.red = 14
       this.green = 146
@@ -126,10 +126,10 @@ class FadingWord {
       this.font = "monospace";
       this.size = maxTextSize;
       this.yOffset = -this.size / 6;
-      this.fadeVel = -0.05;
+      this.fadeVel = -0.03;
     }
 
-    if (this.word.toLowerCase() == "breadth" || this.word.toLowerCase() == "blood" || random() > 0.95) {
+    if (this.word.toLowerCase() == "breadth" || this.word.toLowerCase() == "blood") {
       this.word = this.word.toUpperCase();
       this.red = 200;
       this.green = 51;
@@ -137,10 +137,10 @@ class FadingWord {
       this.font = "monospace";
       this.size = maxTextSize;
       this.yOffset = -this.size / 6;
-      this.fadeVel = -0.05;
+      this.fadeVel = -0.03;
     }
 
-    if (this.word.toLowerCase() == "crevasses" || this.word.toLowerCase() == "present" || this.word.toLowerCase() == "moment" || random() > 0.95) {
+    if (this.word.toLowerCase() == "crevasses" || this.word.toLowerCase() == "present" || this.word.toLowerCase() == "moment") {
       this.word = this.word.toUpperCase();
       // try gray?
       this.red = 128;
@@ -149,7 +149,7 @@ class FadingWord {
       this.font = "monospace";
       this.size = maxTextSize;
       this.yOffset = -this.size / 6;
-      this.fadeVel = -0.05;
+      this.fadeVel = -0.03;
     }
 
     textFont(this.font);
@@ -187,6 +187,7 @@ class FadingWord {
     let letters = this.word.slice(0, lastLetter);
 
     fill(this.red, this.green, this.blue, this.alpha);
+    noStroke()
     textFont(this.font);
     textSize(this.size);
     text(letters, this.x, this.y + this.yOffset);
@@ -251,9 +252,16 @@ let q4words = [
 
 let MARGIN = 40;
 
-let drawnWords;
+let q1drawnWords;
+let q2drawnWords;
+let q3drawnWords;
+let q4drawnWords;
 
-let wordCount;
+let q1wordCount;
+let q2wordCount;
+let q3wordCount;
+let q4wordCount;
+
 let nextUpdateMillis;
 
 let minTextSize;
@@ -270,16 +278,24 @@ function setup() {
   background(bg)
   frameRate(60)
 
-  drawnWords = []
+  q1drawnWords = []
+  q2drawnWords = []
+  q3drawnWords = []
+  q4drawnWords = []
+
 
   cx = MARGIN
   cy = MARGIN
 
-  wordCount = 0;
+  q1wordCount = 0;
+  q2wordCount = 0;
+  q3wordCount = 0;
+  q4wordCount = 0;
+
   nextUpdateMillis = 0;
 
-  minTextSize = 40;
-  maxTextSize = 50;
+  minTextSize = 75;
+  maxTextSize = 85;
 
   textAlign(LEFT, TOP);
   textFont("sans-serif");
@@ -327,8 +343,6 @@ function draw() {
   imageMode(CENTER);
   image(images[imageIndex], windowWidth/2, windowHeight/2,windowWidth, windowHeight)
 
-  drawnWords = drawnWords.filter(isVisible);
-
   //intro
   if (frameCount < 1800) {
     http()
@@ -365,23 +379,27 @@ function draw() {
 
   //post q1
   if (frameCount > 8520 & frameCount < 11640){
-    for (wi = 0; wi < drawnWords.length; wi++) {
-      let nextWord = drawnWords[wi];
+    blank()
+
+    q1drawnWords = q1drawnWords.filter(isVisible);
+
+    for (wi = 0; wi < q1drawnWords.length; wi++) {
+      let nextWord = q1drawnWords[wi];
       nextWord.update();
       nextWord.draw();
     }
   
     // check if it's time to add a new FadingWord to array
     if (millis() > nextUpdateMillis) {
-      let nextWordIndex = wordCount % q1words.length;
+      let nextWordIndex = q1wordCount % q1words.length;
       let nextWord = q1words[nextWordIndex];
   
       // add word to array
       let wordDelay = random(450, 600);
-      drawnWords.push(new FadingWord(nextWord, wordDelay));
+      q1drawnWords.push(new FadingWord(nextWord, wordDelay));
   
       // always increment the word count
-      wordCount += 1;
+      q1wordCount += 1;
   
       // next update time in millis, with some variation
       nextUpdateMillis = millis() + 1.2 * wordDelay;
@@ -397,23 +415,27 @@ function draw() {
 
   //post q2
   if (frameCount > 11940 & frameCount < 14880){
-    for (wi = 0; wi < drawnWords.length; wi++) {
-      let nextWord = drawnWords[wi];
+    blank()
+
+    q2drawnWords = q2drawnWords.filter(isVisible);
+
+    for (wi = 0; wi < q2drawnWords.length; wi++) {
+      let nextWord = q2drawnWords[wi];
       nextWord.update();
       nextWord.draw();
     }
   
     // check if it's time to add a new FadingWord to array
     if (millis() > nextUpdateMillis) {
-      let nextWordIndex = wordCount % q2words.length;
+      let nextWordIndex = q2wordCount % q2words.length;
       let nextWord = q2words[nextWordIndex];
   
       // add word to array
       let wordDelay = random(450, 600);
-      drawnWords.push(new FadingWord(nextWord, wordDelay));
+      q2drawnWords.push(new FadingWord(nextWord, wordDelay));
   
       // always increment the word count
-      wordCount += 1;
+      q2wordCount += 1;
   
       // next update time in millis, with some variation
       nextUpdateMillis = millis() + 1.2 * wordDelay;
@@ -429,23 +451,27 @@ function draw() {
 
   //post q3
   if (frameCount > 15180 & frameCount < 18240){
-    for (wi = 0; wi < drawnWords.length; wi++) {
-      let nextWord = drawnWords[wi];
+    blank()
+
+    q3drawnWords = q3drawnWords.filter(isVisible);
+
+    for (wi = 0; wi < q3drawnWords.length; wi++) {
+      let nextWord = q3drawnWords[wi];
       nextWord.update();
       nextWord.draw();
     }
   
     // check if it's time to add a new FadingWord to array
     if (millis() > nextUpdateMillis) {
-      let nextWordIndex = wordCount % q3words.length;
+      let nextWordIndex = q3wordCount % q3words.length;
       let nextWord = q3words[nextWordIndex];
   
       // add word to array
       let wordDelay = random(450, 600);
-      drawnWords.push(new FadingWord(nextWord, wordDelay));
+      q3drawnWords.push(new FadingWord(nextWord, wordDelay));
   
       // always increment the word count
-      wordCount += 1;
+      q3wordCount += 1;
   
       // next update time in millis, with some variation
       nextUpdateMillis = millis() + 1.2 * wordDelay;
@@ -461,23 +487,27 @@ function draw() {
 
   //post q4
   if (frameCount > 18540 & frameCount < 20400){
-    for (wi = 0; wi < drawnWords.length; wi++) {
-      let nextWord = drawnWords[wi];
+    blank()
+
+    q4drawnWords = q4drawnWords.filter(isVisible);
+
+    for (wi = 0; wi < q4drawnWords.length; wi++) {
+      let nextWord = q4drawnWords[wi];
       nextWord.update();
       nextWord.draw();
     }
   
     // check if it's time to add a new FadingWord to array
     if (millis() > nextUpdateMillis) {
-      let nextWordIndex = wordCount % q4words.length;
+      let nextWordIndex = q4wordCount % q4words.length;
       let nextWord = q4words[nextWordIndex];
   
       // add word to array
       let wordDelay = random(450, 600);
-      drawnWords.push(new FadingWord(nextWord, wordDelay));
+      q4drawnWords.push(new FadingWord(nextWord, wordDelay));
   
       // always increment the word count
-      wordCount += 1;
+      q4wordCount += 1;
   
       // next update time in millis, with some variation
       nextUpdateMillis = millis() + 1.2 * wordDelay;
