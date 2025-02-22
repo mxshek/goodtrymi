@@ -333,6 +333,14 @@ function setup() {
 }
 }
 
+function mousePressed() {
+  if (mouseX > 0 && mouseX < windowWidth && mouseY > 0 && mouseY < windowHeight) {
+    let fs = fullscreen();
+    fullscreen(!fs);
+  }
+}
+
+
 function isVisible(fw) {
   return fw.alpha > 0;
 }
@@ -344,13 +352,13 @@ function draw() {
   image(images[imageIndex], windowWidth/2, windowHeight/2,windowWidth, windowHeight)
 
   //intro
-  if (frameCount < 1800) {
+  if (frameCount < 2700) {
     http()
     }
 
 
   //penicillin
-  if (frameCount > 1800 & frameCount < 2400){
+  if (frameCount > 2700 & frameCount < 3300){
     rect(0, 0, windowWidth, windowHeight)
     fill(255, 255, 255)
     imageMode(CENTER);
@@ -359,26 +367,26 @@ function draw() {
 
 
   //selfdiscovery
-  if (frameCount > 2400 & frameCount < 4980){
+  if (frameCount > 3300 & frameCount < 5840){
     http()
   }
 
 
   //data uploaded
-  if (frameCount > 4980 & frameCount < 8220){
+  if (frameCount > 5840 & frameCount < 9120){
     http()
     linesdisplay()
   }
 
 
   //q1
-  if (frameCount > 8220 & frameCount < 8520){
+  if (frameCount > 9120 & frameCount < 9420){
     dizzy()
   }
 
 
   //post q1
-  if (frameCount > 8520 & frameCount < 11640){
+  if (frameCount > 9420 & frameCount < 13200){
     blank()
 
     q1drawnWords = q1drawnWords.filter(isVisible);
@@ -408,13 +416,13 @@ function draw() {
 
 
   //q2
-  if (frameCount > 11640 & frameCount < 11940){
+  if (frameCount > 13200 & frameCount < 13680){
     mountain()
   }
 
 
   //post q2
-  if (frameCount > 11940 & frameCount < 14880){
+  if (frameCount > 13680 & frameCount < 17100){
     blank()
 
     q2drawnWords = q2drawnWords.filter(isVisible);
@@ -444,13 +452,13 @@ function draw() {
 
 
   //q3
-  if (frameCount > 14880 & frameCount < 15180){
+  if (frameCount > 17100 & frameCount < 17400){
     blood()
   }
 
 
   //post q3
-  if (frameCount > 15180 & frameCount < 18240){
+  if (frameCount > 17400 & frameCount < 21060){
     blank()
 
     q3drawnWords = q3drawnWords.filter(isVisible);
@@ -480,13 +488,13 @@ function draw() {
 
 
 //q4
-  if (frameCount > 18240 & frameCount < 18540){
+  if (frameCount > 21060 & frameCount < 21320){
     moment()
   }
 
 
   //post q4
-  if (frameCount > 18540 & frameCount < 20400){
+  if (frameCount > 21320 & frameCount < 22920){
     blank()
 
     q4drawnWords = q4drawnWords.filter(isVisible);
@@ -516,7 +524,7 @@ function draw() {
 
 
   //miya voice
-  if (frameCount > 20400 & frameCount < 24180){
+  if (frameCount > 22920 & frameCount < 27018){
     // sound()
     http()
     linesdisplay()
@@ -524,7 +532,7 @@ function draw() {
 
 
   //angy miya
-  if (frameCount > 24180 & frameCount < 25680){
+  if (frameCount > 27018 & frameCount < 28523){
     rect(0, 0, windowWidth, windowHeight)
     fill(200, 51 , 92)
     imageIndex = 8
@@ -532,7 +540,7 @@ function draw() {
   }
  
   //poem reading
-  if (frameCount > 25680 & frameCount < 33660){
+  if (frameCount > 28523 & frameCount < 36420){
   colorchange()
   }
 
@@ -656,3 +664,7 @@ function soundline(){
     lines[i].display() 
 
 }}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
