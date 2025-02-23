@@ -294,8 +294,8 @@ function setup() {
 
   nextUpdateMillis = 0;
 
-  minTextSize = 75;
-  maxTextSize = 85;
+  minTextSize = windowHeight/10;
+  maxTextSize = windowHeight/8;
 
   textAlign(LEFT, TOP);
   textFont("sans-serif");
